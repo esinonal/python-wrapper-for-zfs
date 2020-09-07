@@ -150,9 +150,7 @@ async def create_clone(snapshot, dataset, quota):
 async def send_snapshot_to_ipfs(snapshot, callback):
     logging.info(f"Begin send snapshot {snapshot} to ipfs")
     container_id = ipfs.get_container_id()
-    # size-1048576
-    # rabin-524288-786432-1048576
-    #
+
     command = f"sudo zfs send -Rw {snapshot} | docker exec -i {container_id} ipfs add -s buzhash"
     proc = await asyncio.create_subprocess_shell(
         command, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
